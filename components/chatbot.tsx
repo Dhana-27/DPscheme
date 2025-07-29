@@ -4,17 +4,22 @@ import type React from "react"
 
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { MessageCircle, Send, X, Bot, User, Loader2 } from "lucide-react"
+import { MessageCircle, X, Send, Bot, User, ExternalLink } from "lucide-react"
 
 interface Message {
   id: string
   type: "user" | "bot"
   content: string
   timestamp: Date
-  schemes?: any[]
+  schemes?: Array<{
+    name: string
+    type: string
+    amount: string
+    url: string
+  }>
 }
 
 export default function Chatbot() {
@@ -24,12 +29,12 @@ export default function Chatbot() {
       id: "1",
       type: "bot",
       content:
-        "Hello! I'm your AI assistant for finding grants and loans. I can help you discover schemes based on your needs. What type of funding are you looking for?",
+        "Hi! I'm your SchemeConnect assistant. I can help you find the perfect grants and loans for your needs. What type of funding are you looking for?",
       timestamp: new Date(),
     },
   ])
-  const [inputMessage, setInputMessage] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
+  const [inputValue, setInputValue] = useState("")
+  const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = () => {
@@ -40,85 +45,124 @@ export default function Chatbot() {
     scrollToBottom()
   }, [messages])
 
-  // Mock AI responses based on user input
   const generateBotResponse = (userMessage: string): Message => {
     const lowerMessage = userMessage.toLowerCase()
 
-    if (lowerMessage.includes("business") || lowerMessage.includes("startup")) {
+    // Business loan queries
+    if (lowerMessage.includes("business") || lowerMessage.includes("loan")) {
       return {
         id: Date.now().toString(),
         type: "bot",
-        content: "Great! I found several business funding options for you. Here are some relevant schemes:",
+        content: "I found some great business loan options for you! Here are the top schemes:",
         timestamp: new Date(),
         schemes: [
           {
             name: "PM Mudra Yojana",
             type: "Loan",
             amount: "Up to ₹10 Lakhs",
-            description: "Micro-finance scheme for small businesses",
+            url: "https://www.mudra.org.in/",
           },
+          {
+            name: "SBI Business Loan",
+            type: "Loan",
+            amount: "Up to ₹50 Lakhs",
+            url: "https://sbi.co.in/",
+          },
+        ],
+      }
+    }
+
+    // Startup queries
+    if (lowerMessage.includes("startup") || lowerMessage.includes("entrepreneur")) {
+      return {
+        id: Date.now().toString(),
+        type: "bot",
+        content: "Perfect! Here are some excellent startup funding schemes:",
+        timestamp: new Date(),
+        schemes: [
           {
             name: "Startup India Seed Fund",
             type: "Grant",
             amount: "Up to ₹50 Lakhs",
-            description: "Seed funding for DPIIT recognized startups",
+            url: "https://www.startupindia.gov.in/",
+          },
+          {
+            name: "SIDBI Startup Loan",
+            type: "Loan",
+            amount: "Up to ₹1 Crore",
+            url: "https://www.sidbi.in/",
           },
         ],
       }
     }
 
+    // Women entrepreneur queries
+    if (lowerMessage.includes("women") || lowerMessage.includes("female")) {
+      return {
+        id: Date.now().toString(),
+        type: "bot",
+        content: "Great! Here are schemes specifically for women entrepreneurs:",
+        timestamp: new Date(),
+        schemes: [
+          {
+            name: "SBI Women Entrepreneur Loan",
+            type: "Loan",
+            amount: "Up to ₹2 Crores",
+            url: "https://sbi.co.in/",
+          },
+          {
+            name: "Mahila Udyam Nidhi Scheme",
+            type: "Grant",
+            amount: "Up to ₹10 Lakhs",
+            url: "#",
+          },
+        ],
+      }
+    }
+
+    // Agriculture queries
     if (lowerMessage.includes("agriculture") || lowerMessage.includes("farming") || lowerMessage.includes("farmer")) {
       return {
         id: Date.now().toString(),
         type: "bot",
-        content: "I found some excellent agricultural schemes for you:",
+        content: "Here are some agricultural funding schemes that might help:",
         timestamp: new Date(),
         schemes: [
           {
-            name: "PM Kisan Samman Nidhi",
-            type: "Grant",
-            amount: "₹6,000 per year",
-            description: "Direct income support to farmers",
+            name: "PM Kisan Credit Card",
+            type: "Loan",
+            amount: "Up to ₹3 Lakhs",
+            url: "https://pmkisan.gov.in/",
           },
           {
-            name: "Kisan Credit Card",
-            type: "Loan",
-            amount: "Based on crop requirement",
-            description: "Credit facility for agricultural needs",
+            name: "Agriculture Infrastructure Fund",
+            type: "Grant",
+            amount: "Up to ₹2 Crores",
+            url: "#",
           },
         ],
       }
     }
 
+    // Education queries
     if (lowerMessage.includes("education") || lowerMessage.includes("student") || lowerMessage.includes("study")) {
       return {
         id: Date.now().toString(),
         type: "bot",
-        content: "Here are some education-related funding options:",
+        content: "Here are education funding options available:",
         timestamp: new Date(),
         schemes: [
           {
             name: "Education Loan Scheme",
             type: "Loan",
             amount: "Up to ₹20 Lakhs",
-            description: "Loans for higher education in India and abroad",
+            url: "#",
           },
-        ],
-      }
-    }
-
-    if (lowerMessage.includes("woman") || lowerMessage.includes("women")) {
-      return {
-        id: Date.now().toString(),
-        type: "bot",
-        content: "I found schemes specifically for women entrepreneurs:",
-        timestamp: new Date(),
-        schemes: [
           {
-            name: "Stand Up India Scheme",
-            type: "Loan",
-            amount: "₹10 Lakhs - ₹1 Crore",
-            description: "Bank loans for women entrepreneurs",
+            name: "Merit Scholarship",
+            type: "Grant",
+            amount: "Up to ₹50,000",
+            url: "#",
           },
         ],
       }
@@ -129,31 +173,31 @@ export default function Chatbot() {
       id: Date.now().toString(),
       type: "bot",
       content:
-        "I understand you're looking for funding options. Could you please provide more details about:\n\n• What type of funding do you need? (Business, Agriculture, Education, etc.)\n• What's your approximate funding requirement?\n• Are you an individual, business owner, or part of a specific category?\n\nThis will help me find the most suitable schemes for you!",
+        "I can help you find schemes for various categories like business loans, startup grants, women entrepreneur schemes, agriculture funding, and education loans. Could you tell me more about what specific type of funding you're looking for?",
       timestamp: new Date(),
     }
   }
 
   const handleSendMessage = async () => {
-    if (!inputMessage.trim()) return
+    if (!inputValue.trim()) return
 
     const userMessage: Message = {
       id: Date.now().toString(),
       type: "user",
-      content: inputMessage,
+      content: inputValue,
       timestamp: new Date(),
     }
 
     setMessages((prev) => [...prev, userMessage])
-    setInputMessage("")
-    setIsLoading(true)
+    setInputValue("")
+    setIsTyping(true)
 
-    // Simulate AI processing delay
+    // Simulate typing delay
     setTimeout(() => {
-      const botResponse = generateBotResponse(inputMessage)
+      const botResponse = generateBotResponse(inputValue)
       setMessages((prev) => [...prev, botResponse])
-      setIsLoading(false)
-    }, 1500)
+      setIsTyping(false)
+    }, 1000)
   }
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -163,118 +207,164 @@ export default function Chatbot() {
     }
   }
 
+  const quickActions = ["Business loans", "Startup grants", "Women entrepreneur schemes", "Agriculture funding"]
+
   return (
     <>
-      {/* Chatbot Toggle Button */}
-      <Button
-        id="chatbot-toggle"
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-green-600 hover:bg-green-700 shadow-lg z-50"
-        size="icon"
-      >
-        {isOpen ? <X className="h-6 w-6" /> : <MessageCircle className="h-6 w-6" />}
-      </Button>
+      {/* Chat Toggle Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <Button
+          onClick={() => setIsOpen(!isOpen)}
+          className="w-14 h-14 rounded-full bg-green-600 hover:bg-green-700 shadow-lg"
+          size="lg"
+        >
+          {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
+        </Button>
+      </div>
 
-      {/* Chatbot Window */}
+      {/* Chat Window */}
       {isOpen && (
-        <Card className="fixed bottom-24 right-6 w-96 h-[500px] shadow-2xl z-50 border-green-200">
-          <CardHeader className="bg-green-600 text-white rounded-t-lg">
-            <CardTitle className="flex items-center space-x-2">
-              <Bot className="h-5 w-5" />
-              <span>AI Scheme Assistant</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-0 flex flex-col h-[440px]">
-            {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {messages.map((message) => (
-                <div key={message.id} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}>
-                  <div
-                    className={`max-w-[80%] rounded-lg p-3 ${
-                      message.type === "user" ? "bg-green-600 text-white" : "bg-gray-100 text-gray-800"
-                    }`}
-                  >
-                    <div className="flex items-start space-x-2">
-                      {message.type === "bot" && <Bot className="h-4 w-4 mt-1 text-green-600" />}
-                      {message.type === "user" && <User className="h-4 w-4 mt-1" />}
-                      <div className="flex-1">
-                        <p className="text-sm whitespace-pre-line">{message.content}</p>
+        <div className="fixed bottom-24 right-6 w-96 h-[500px] z-40 shadow-2xl">
+          <Card className="h-full flex flex-col border-green-200">
+            <CardHeader className="bg-green-600 text-white rounded-t-lg">
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <Bot className="w-5 h-5" />
+                SchemeConnect Assistant
+              </CardTitle>
+              <p className="text-green-100 text-sm">Find the perfect grants and loans</p>
+            </CardHeader>
 
-                        {/* Display schemes if available */}
-                        {message.schemes && (
-                          <div className="mt-3 space-y-2">
-                            {message.schemes.map((scheme, index) => (
-                              <div key={index} className="bg-white rounded-lg p-3 border border-green-200">
-                                <div className="flex justify-between items-start mb-2">
-                                  <h4 className="font-semibold text-green-900 text-sm">{scheme.name}</h4>
-                                  <Badge
-                                    variant={scheme.type === "Grant" ? "default" : "secondary"}
-                                    className={`text-xs ${scheme.type === "Grant" ? "bg-green-600" : "bg-blue-600"}`}
-                                  >
-                                    {scheme.type}
-                                  </Badge>
+            <CardContent className="flex-1 flex flex-col p-0">
+              {/* Messages Area */}
+              <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                {messages.map((message) => (
+                  <div key={message.id} className={`flex ${message.type === "user" ? "justify-end" : "justify-start"}`}>
+                    <div
+                      className={`max-w-[80%] rounded-lg p-3 ${
+                        message.type === "user" ? "bg-green-600 text-white" : "bg-gray-100 text-gray-900"
+                      }`}
+                    >
+                      <div className="flex items-start gap-2">
+                        {message.type === "bot" && <Bot className="w-4 h-4 mt-0.5 text-green-600" />}
+                        {message.type === "user" && <User className="w-4 h-4 mt-0.5" />}
+                        <div className="flex-1">
+                          <p className="text-sm">{message.content}</p>
+
+                          {/* Scheme Cards */}
+                          {message.schemes && (
+                            <div className="mt-3 space-y-2">
+                              {message.schemes.map((scheme, index) => (
+                                <div key={index} className="bg-white border border-green-200 rounded-lg p-3">
+                                  <div className="flex justify-between items-start mb-2">
+                                    <h4 className="font-semibold text-gray-900 text-sm">{scheme.name}</h4>
+                                    <Badge
+                                      variant={scheme.type === "Grant" ? "default" : "secondary"}
+                                      className={`text-xs ${
+                                        scheme.type === "Grant" ? "bg-green-100 text-green-800" : ""
+                                      }`}
+                                    >
+                                      {scheme.type}
+                                    </Badge>
+                                  </div>
+                                  <p className="text-green-600 font-semibold text-sm mb-2">{scheme.amount}</p>
+                                  <Button size="sm" className="w-full bg-green-600 hover:bg-green-700 text-xs" asChild>
+                                    <a
+                                      href={scheme.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="flex items-center justify-center gap-1"
+                                    >
+                                      Apply Now
+                                      <ExternalLink className="w-3 h-3" />
+                                    </a>
+                                  </Button>
                                 </div>
-                                <p className="text-xs text-gray-600 mb-1">{scheme.description}</p>
-                                <p className="text-xs font-medium text-green-600">{scheme.amount}</p>
-                              </div>
-                            ))}
-                            <Button
-                              size="sm"
-                              className="w-full bg-green-600 hover:bg-green-700 text-xs"
-                              onClick={() => window.open("/search", "_blank")}
-                            >
-                              View All Schemes
-                            </Button>
-                          </div>
-                        )}
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="text-xs opacity-70 mt-1">
+                        {message.timestamp.toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
                       </div>
                     </div>
-                    <div className="text-xs opacity-70 mt-1">
-                      {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                  </div>
+                ))}
+
+                {/* Typing Indicator */}
+                {isTyping && (
+                  <div className="flex justify-start">
+                    <div className="bg-gray-100 rounded-lg p-3 max-w-[80%]">
+                      <div className="flex items-center gap-2">
+                        <Bot className="w-4 h-4 text-green-600" />
+                        <div className="flex space-x-1">
+                          <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                          <div
+                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                            style={{ animationDelay: "0.1s" }}
+                          ></div>
+                          <div
+                            className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                            style={{ animationDelay: "0.2s" }}
+                          ></div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                )}
+                <div ref={messagesEndRef} />
+              </div>
 
-              {/* Loading indicator */}
-              {isLoading && (
-                <div className="flex justify-start">
-                  <div className="bg-gray-100 rounded-lg p-3 max-w-[80%]">
-                    <div className="flex items-center space-x-2">
-                      <Bot className="h-4 w-4 text-green-600" />
-                      <Loader2 className="h-4 w-4 animate-spin text-green-600" />
-                      <span className="text-sm text-gray-600">Thinking...</span>
-                    </div>
+              {/* Quick Actions */}
+              {messages.length <= 1 && (
+                <div className="p-4 border-t border-gray-200">
+                  <p className="text-xs text-gray-600 mb-2">Quick actions:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {quickActions.map((action, index) => (
+                      <Button
+                        key={index}
+                        variant="outline"
+                        size="sm"
+                        className="text-xs border-green-200 text-green-700 hover:bg-green-50 bg-transparent"
+                        onClick={() => {
+                          setInputValue(action)
+                          handleSendMessage()
+                        }}
+                      >
+                        {action}
+                      </Button>
+                    ))}
                   </div>
                 </div>
               )}
 
-              <div ref={messagesEndRef} />
-            </div>
-
-            {/* Input Area */}
-            <div className="border-t border-gray-200 p-4">
-              <div className="flex space-x-2">
-                <Input
-                  value={inputMessage}
-                  onChange={(e) => setInputMessage(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Ask about grants and loans..."
-                  className="flex-1 border-green-300 focus:border-green-500"
-                  disabled={isLoading}
-                />
-                <Button
-                  onClick={handleSendMessage}
-                  disabled={!inputMessage.trim() || isLoading}
-                  className="bg-green-600 hover:bg-green-700"
-                  size="icon"
-                >
-                  <Send className="h-4 w-4" />
-                </Button>
+              {/* Input Area */}
+              <div className="p-4 border-t border-gray-200">
+                <div className="flex gap-2">
+                  <Input
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    placeholder="Ask about grants and loans..."
+                    className="flex-1 border-green-200 focus:border-green-500"
+                    disabled={isTyping}
+                  />
+                  <Button
+                    onClick={handleSendMessage}
+                    disabled={!inputValue.trim() || isTyping}
+                    className="bg-green-600 hover:bg-green-700"
+                    size="sm"
+                  >
+                    <Send className="w-4 h-4" />
+                  </Button>
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       )}
     </>
   )
