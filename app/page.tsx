@@ -325,7 +325,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2024 SchemeConnect by dpurpose Foundation. All rights reserved.</p>
+            <p>&copy; 2025 SchemeConnect by Dpurpose Foundation. All rights reserved.</p>
           </div>
         </div>
       </footer>
