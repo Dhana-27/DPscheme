@@ -261,7 +261,7 @@ export default function PricingPage() {
               rel="noopener noreferrer"
               className="text-green-400 hover:text-green-300"
             >
-              dpurpose Foundation
+              Dpurpose Foundation
             </a>
           </p>
         </div>

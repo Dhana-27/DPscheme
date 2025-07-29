@@ -138,7 +138,7 @@ export default function LoginPage() {
               rel="noopener noreferrer"
               className="text-green-600 hover:text-green-700 font-medium"
             >
-              dpurpose Foundation
+              Dpurpose Foundation
             </a>
           </p>
         </div>

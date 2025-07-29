@@ -94,7 +94,7 @@ export default function HomePage() {
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
             Discover government grants, bank loans, and funding opportunities with our AI-powered assistant. Powered by
-            dpurpose Foundation to help you achieve your goals.
+            Dpurpose Foundation to help you achieve your goals.
           </p>
 
           {/* Search Bar */}
@@ -179,7 +179,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Why Choose SchemeConnect?</h2>
-            <p className="text-xl text-gray-600">Powered by dpurpose Foundation's expertise</p>
+            <p className="text-xl text-gray-600">Powered by Dpurpose Foundation's expertise</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -201,7 +201,7 @@ export default function HomePage() {
               },
               {
                 title: "Expert Support",
-                description: "Backed by dpurpose Foundation's expertise",
+                description: "Backed by Dpurpose Foundation's expertise",
                 icon: "🎯",
               },
             ].map((feature, index) => (
@@ -255,7 +255,7 @@ export default function HomePage() {
                 <span className="text-xl font-bold">SchemeConnect</span>
               </div>
               <p className="text-gray-400 text-sm">
-                Powered by dpurpose Foundation to help you discover the perfect grants and loans.
+                Powered by Dpurpose Foundation to help you discover the perfect grants and loans.
               </p>
             </div>
             <div>
@@ -299,7 +299,7 @@ export default function HomePage() {
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">dpurpose Foundation</h3>
+              <h3 className="font-semibold mb-4">Dpurpose Foundation</h3>
               <ul className="space-y-2 text-sm text-gray-400">
                 <li>
                   <a
