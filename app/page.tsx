@@ -1,269 +1,268 @@
 "use client"
 
-import { useState } from "react"
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { Search, Users, TrendingUp, Shield, ArrowRight } from "lucide-react"
+import { Search, MessageCircle, Shield, ArrowRight, CheckCircle } from "lucide-react"
+import Link from "next/link"
 
 export default function HomePage() {
-  const [searchQuery, setSearchQuery] = useState("")
-
-  const featuredSchemes = [
-    {
-      id: 1,
-      name: "PM Mudra Yojana",
-      type: "Loan",
-      provider: "Central Government",
-      amount: "Up to ₹10 Lakhs",
-      category: "Business",
-      description: "Micro-finance scheme for small businesses and entrepreneurs",
-    },
-    {
-      id: 2,
-      name: "Startup India Seed Fund",
-      type: "Grant",
-      provider: "Central Government",
-      amount: "Up to ₹50 Lakhs",
-      category: "Startup",
-      description: "Financial support for startups in proof of concept stage",
-    },
-    {
-      id: 3,
-      name: "SBI Women Entrepreneur Loan",
-      type: "Loan",
-      provider: "State Bank of India",
-      amount: "Up to ₹2 Crores",
-      category: "Women",
-      description: "Special loan scheme for women entrepreneurs",
-    },
-  ]
-
-  const stats = [
-    { icon: Users, label: "Active Users", value: "10,000+" },
-    { icon: TrendingUp, label: "Schemes Available", value: "500+" },
-    { icon: Shield, label: "Success Rate", value: "85%" },
-  ]
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b border-green-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">SC</span>
-              </div>
-              <span className="text-xl font-bold text-green-800">SchemeConnect</span>
+      <header className="border-b border-green-200 bg-white/80 backdrop-blur-sm sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-sm">DP</span>
             </div>
-            <nav className="hidden md:flex space-x-8">
-              <Link href="/search" className="text-gray-700 hover:text-green-600 transition-colors">
-                Search Schemes
-              </Link>
-              <Link href="/pricing" className="text-gray-700 hover:text-green-600 transition-colors">
-                Pricing
-              </Link>
-              <Link href="/login" className="text-gray-700 hover:text-green-600 transition-colors">
+            <span className="font-bold text-xl text-green-800">SchemeConnect</span>
+          </div>
+          <nav className="hidden md:flex items-center space-x-6">
+            <Link href="/search" className="text-green-700 hover:text-green-800 font-medium">
+              Search Schemes
+            </Link>
+            <Link href="/pricing" className="text-green-700 hover:text-green-800 font-medium">
+              Pricing
+            </Link>
+            <Link href="/about" className="text-green-700 hover:text-green-800 font-medium">
+              About
+            </Link>
+          </nav>
+          <div className="flex items-center space-x-3">
+            <Link href="/login">
+              <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-50 bg-transparent">
                 Login
-              </Link>
-            </nav>
-            <div className="flex items-center space-x-4">
-              <Link href="/login">
-                <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-50 bg-transparent">
-                  Login
-                </Button>
-              </Link>
-              <Link href="/signup">
-                <Button className="bg-green-600 hover:bg-green-700">Get Started</Button>
-              </Link>
-            </div>
+              </Button>
+            </Link>
+            <Link href="/signup">
+              <Button className="bg-green-600 hover:bg-green-700">Sign Up</Button>
+            </Link>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+      <section className="py-20 px-4">
+        <div className="container mx-auto text-center">
+          <Badge className="mb-4 bg-green-100 text-green-800 border-green-200">Powered by dpurpose Foundation</Badge>
+          <h1 className="text-5xl md:text-6xl font-bold text-green-900 mb-6">
             Find the Perfect
-            <span className="text-green-600 block">Grants & Loans</span>
-            for Your Dreams
+            <span className="text-green-600 block">Grant or Loan</span>
           </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Discover government grants, bank loans, and funding opportunities with our AI-powered assistant. Powered by
-            Dpurpose Foundation to help you achieve your goals.
+          <p className="text-xl text-green-700 mb-8 max-w-3xl mx-auto">
+            Discover government grants, loans from public and private banks, and funding opportunities tailored to your
+            needs. Our AI assistant helps you navigate through thousands of schemes.
           </p>
-
-          {/* Search Bar */}
-          <div className="max-w-2xl mx-auto mb-12">
-            <div className="flex gap-4">
-              <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <Input
-                  type="text"
-                  placeholder="Search for business loans, startup grants, education funding..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 py-3 text-lg border-green-200 focus:border-green-500"
-                />
-              </div>
-              <Link href={`/search?q=${encodeURIComponent(searchQuery)}`}>
-                <Button size="lg" className="bg-green-600 hover:bg-green-700 px-8">
-                  Search
-                </Button>
-              </Link>
-            </div>
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-lg mb-4">
-                  <stat.icon className="w-6 h-6 text-green-600" />
-                </div>
-                <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
-                <div className="text-gray-600">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Schemes */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Schemes</h2>
-            <p className="text-xl text-gray-600">Popular funding opportunities trending this month</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {featuredSchemes.map((scheme) => (
-              <Card key={scheme.id} className="hover:shadow-lg transition-shadow border-green-100">
-                <CardHeader>
-                  <div className="flex justify-between items-start mb-2">
-                    <Badge
-                      variant={scheme.type === "Grant" ? "default" : "secondary"}
-                      className={scheme.type === "Grant" ? "bg-green-100 text-green-800" : ""}
-                    >
-                      {scheme.type}
-                    </Badge>
-                    <Badge variant="outline" className="text-xs">
-                      {scheme.category}
-                    </Badge>
-                  </div>
-                  <CardTitle className="text-lg">{scheme.name}</CardTitle>
-                  <CardDescription className="text-sm text-gray-500">{scheme.provider}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="mb-4">
-                    <div className="text-2xl font-bold text-green-600 mb-2">{scheme.amount}</div>
-                    <p className="text-gray-600 text-sm">{scheme.description}</p>
-                  </div>
-                  <Button className="w-full bg-green-600 hover:bg-green-700">
-                    Learn More <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link href="/search">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 text-lg px-8 py-3">
+                <Search className="mr-2 h-5 w-5" />
+                Start Searching
+              </Button>
+            </Link>
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-green-600 text-green-600 hover:bg-green-50 text-lg px-8 py-3 bg-transparent"
+              onClick={() => {
+                const chatbot = document.getElementById("chatbot-toggle")
+                if (chatbot) chatbot.click()
+              }}
+            >
+              <MessageCircle className="mr-2 h-5 w-5" />
+              Ask AI Assistant
+            </Button>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-green-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Why Choose SchemeConnect?</h2>
-            <p className="text-xl text-gray-600">Powered by Dpurpose Foundation's expertise</p>
-          </div>
+      <section className="py-16 px-4 bg-white">
+        <div className="container mx-auto">
+          <h2 className="text-3xl font-bold text-center text-green-900 mb-12">Why Choose SchemeConnect?</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="border-green-200 hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                  <Search className="h-6 w-6 text-green-600" />
+                </div>
+                <CardTitle className="text-green-900">Comprehensive Database</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-green-700">
+                  Access thousands of grants and loans from central government, state governments, public & private
+                  banks, and regional rural banks.
+                </CardDescription>
+              </CardContent>
+            </Card>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                title: "AI-Powered Search",
-                description: "Smart chatbot helps you find the perfect schemes",
-                icon: "🤖",
-              },
-              {
-                title: "Comprehensive Database",
-                description: "500+ schemes from government and banks",
-                icon: "📊",
-              },
-              {
-                title: "Real-time Updates",
-                description: "Always up-to-date information and deadlines",
-                icon: "⚡",
-              },
-              {
-                title: "Expert Support",
-                description: "Backed by Dpurpose Foundation's expertise",
-                icon: "🎯",
-              },
-            ].map((feature, index) => (
-              <Card key={index} className="text-center border-green-100">
-                <CardContent className="pt-6">
-                  <div className="text-4xl mb-4">{feature.icon}</div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                  <p className="text-gray-600 text-sm">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+            <Card className="border-green-200 hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                  <MessageCircle className="h-6 w-6 text-green-600" />
+                </div>
+                <CardTitle className="text-green-900">AI-Powered Assistant</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-green-700">
+                  Our intelligent chatbot understands your requirements and recommends the most suitable schemes for
+                  your specific needs.
+                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="border-green-200 hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                  <Shield className="h-6 w-6 text-green-600" />
+                </div>
+                <CardTitle className="text-green-900">Trusted & Verified</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-green-700">
+                  All schemes are verified and regularly updated. Direct links to official application portals ensure
+                  authenticity.
+                </CardDescription>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 px-4 bg-green-600">
+        <div className="container mx-auto">
+          <div className="grid md:grid-cols-4 gap-8 text-center text-white">
+            <div>
+              <div className="text-4xl font-bold mb-2">5000+</div>
+              <div className="text-green-100">Active Schemes</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold mb-2">50+</div>
+              <div className="text-green-100">Government Bodies</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold mb-2">200+</div>
+              <div className="text-green-100">Banks & NBFCs</div>
+            </div>
+            <div>
+              <div className="text-4xl font-bold mb-2">10K+</div>
+              <div className="text-green-100">Happy Users</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Preview */}
+      <section className="py-16 px-4 bg-gradient-to-br from-green-50 to-emerald-50">
+        <div className="container mx-auto text-center">
+          <h2 className="text-3xl font-bold text-green-900 mb-4">Choose Your Plan</h2>
+          <p className="text-green-700 mb-12 max-w-2xl mx-auto">
+            Get unlimited access to our comprehensive database and AI assistant
+          </p>
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <Card className="border-green-200 hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <CardTitle className="text-green-900">Monthly Plan</CardTitle>
+                <div className="text-3xl font-bold text-green-600">
+                  ₹149<span className="text-lg font-normal text-green-700">/month</span>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="flex items-center text-green-700">
+                  <CheckCircle className="h-4 w-4 mr-2 text-green-600" />
+                  Unlimited scheme searches
+                </div>
+                <div className="flex items-center text-green-700">
+                  <CheckCircle className="h-4 w-4 mr-2 text-green-600" />
+                  AI assistant access
+                </div>
+                <div className="flex items-center text-green-700">
+                  <CheckCircle className="h-4 w-4 mr-2 text-green-600" />
+                  Direct application links
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-green-600 border-2 hover:shadow-lg transition-shadow relative">
+              <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-600">Best Value</Badge>
+              <CardHeader>
+                <CardTitle className="text-green-900">Yearly Plan</CardTitle>
+                <div className="text-3xl font-bold text-green-600">
+                  ₹1,500<span className="text-lg font-normal text-green-700">/year</span>
+                </div>
+                <div className="text-sm text-green-600">Save ₹288 annually!</div>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="flex items-center text-green-700">
+                  <CheckCircle className="h-4 w-4 mr-2 text-green-600" />
+                  Everything in Monthly
+                </div>
+                <div className="flex items-center text-green-700">
+                  <CheckCircle className="h-4 w-4 mr-2 text-green-600" />
+                  Priority support
+                </div>
+                <div className="flex items-center text-green-700">
+                  <CheckCircle className="h-4 w-4 mr-2 text-green-600" />
+                  Early access to new features
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="mt-8">
+            <Link href="/pricing">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700">
+                View All Plans
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-green-600">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to Find Your Perfect Funding?</h2>
-          <p className="text-xl text-green-100 mb-8">
-            Join thousands of entrepreneurs who found their funding through SchemeConnect
+      <section className="py-16 px-4 bg-green-800">
+        <div className="container mx-auto text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">Ready to Find Your Perfect Scheme?</h2>
+          <p className="text-green-100 mb-8 max-w-2xl mx-auto">
+            Join thousands of users who have successfully found and applied for grants and loans through our platform.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/signup">
-              <Button size="lg" className="bg-white text-green-600 hover:bg-gray-100 px-8">
-                Start Free Trial
-              </Button>
-            </Link>
-            <Link href="/search">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-green-700 px-8 bg-transparent"
-              >
-                Browse Schemes
-              </Button>
-            </Link>
-          </div>
+          <Link href="/signup">
+            <Button size="lg" className="bg-white text-green-800 hover:bg-green-50 text-lg px-8 py-3">
+              Get Started Today
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <footer className="bg-green-900 text-green-100 py-12 px-4">
+        <div className="container mx-auto">
+          <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">SC</span>
+                  <span className="text-white font-bold text-sm">DP</span>
                 </div>
-                <span className="text-xl font-bold">SchemeConnect</span>
+                <span className="font-bold text-xl">SchemeConnect</span>
               </div>
-              <p className="text-gray-400 text-sm">
-                Powered by Dpurpose Foundation to help you discover the perfect grants and loans.
+              <p className="text-green-300">
+                Empowering individuals and businesses to find the right financial support.
               </p>
             </div>
             <div>
               <h3 className="font-semibold mb-4">Platform</h3>
-              <ul className="space-y-2 text-sm text-gray-400">
+              <ul className="space-y-2 text-green-300">
                 <li>
                   <Link href="/search" className="hover:text-white">
                     Search Schemes
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/categories" className="hover:text-white">
+                    Categories
                   </Link>
                 </li>
                 <li>
@@ -271,60 +270,50 @@ export default function HomePage() {
                     Pricing
                   </Link>
                 </li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-4">Support</h3>
+              <ul className="space-y-2 text-green-300">
                 <li>
-                  <Link href="/login" className="hover:text-white">
-                    Login
+                  <Link href="/help" className="hover:text-white">
+                    Help Center
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="hover:text-white">
+                    Contact Us
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/faq" className="hover:text-white">
+                    FAQ
                   </Link>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-4">Support</h3>
-              <ul className="space-y-2 text-sm text-gray-400">
+              <h3 className="font-semibold mb-4">About</h3>
+              <ul className="space-y-2 text-green-300">
                 <li>
-                  <a href="#" className="hover:text-white">
-                    Help Center
-                  </a>
+                  <Link href="https://dpurposefoundation.com/" className="hover:text-white">
+                    dpurpose Foundation
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
-                    Contact Us
-                  </a>
+                  <Link href="/privacy" className="hover:text-white">
+                    Privacy Policy
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white">
-                    FAQ
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Dpurpose Foundation</h3>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>
-                  <a
-                    href="https://dpurposefoundation.com/"
-                    target="_blank"
-                    className="hover:text-white"
-                    rel="noreferrer"
-                  >
-                    About Us
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white">
-                    Mission
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white">
-                    Impact
-                  </a>
+                  <Link href="/terms" className="hover:text-white">
+                    Terms of Service
+                  </Link>
                 </li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
+          <div className="border-t border-green-800 mt-8 pt-8 text-center text-green-400">
             <p>&copy; 2025 SchemeConnect by Dpurpose Foundation. All rights reserved.</p>
           </div>
         </div>
