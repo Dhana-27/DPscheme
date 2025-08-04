@@ -58,6 +58,9 @@ const config: Config = {
           dark: "#00632a",
         },
       },
+      backgroundImage: {
+        "dpurpose-gradient": "linear-gradient(135deg, #87bd71 0%, #00632a 100%)",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
