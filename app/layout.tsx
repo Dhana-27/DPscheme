@@ -7,9 +7,9 @@ import Chatbot from "@/components/chatbot"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "SchemeConnect - Find Perfect Grants & Loans | dpurpose Foundation",
+  title: "Dpurpose Foundation - Find Perfect Grants & Loans",
   description:
-    "Discover government grants, loans from public and private banks, and funding opportunities with AI assistance. Powered by dpurpose Foundation.",
+    "Discover government grants by state and district, plus loans from public and private banks. AI-powered funding discovery platform by Dpurpose Foundation.",
     generator: 'v0.dev'
 }
 
