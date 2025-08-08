@@ -66,54 +66,53 @@ body {
   background: hsl(var(--background));
 }
 
-.bg-dpurpose-gradient {
-  background: linear-gradient(135deg, #87bd71 0%, #00632a 100%);
-}
-
-.text-dpurpose-light {
-  color: #87bd71;
-}
-
+/* DPurpose Foundation Brand Colors */
 .text-dpurpose-dark {
-  color: #00632a;
-}
-
-.bg-dpurpose-light {
-  background-color: #87bd71;
+  color: #2D5016;
 }
 
 .bg-dpurpose-dark {
-  background-color: #00632a;
-}
-
-.border-dpurpose-light {
-  border-color: #87bd71;
+  background-color: #2D5016;
 }
 
 .border-dpurpose-dark {
-  border-color: #00632a;
-}
-
-.hover\:bg-dpurpose-light:hover {
-  background-color: #87bd71;
+  border-color: #2D5016;
 }
 
 .hover\:bg-dpurpose-dark:hover {
-  background-color: #00632a;
-}
-
-.hover\:text-dpurpose-light:hover {
-  color: #87bd71;
+  background-color: #2D5016;
 }
 
 .hover\:text-dpurpose-dark:hover {
-  color: #00632a;
-}
-
-.focus\:border-dpurpose-light:focus {
-  border-color: #87bd71;
+  color: #2D5016;
 }
 
 .focus\:border-dpurpose-dark:focus {
-  border-color: #00632a;
+  border-color: #2D5016;
+}
+
+.focus\:ring-dpurpose-dark:focus {
+  --tw-ring-color: #2D5016;
+}
+
+/* Utility classes */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
